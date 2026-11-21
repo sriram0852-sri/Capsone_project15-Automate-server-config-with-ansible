@@ -1,0 +1,26 @@
+---
+- name: Configure Nginx using Ansible
+  hosts: local
+  become: yes
+
+  tasks:
+
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create custom website page
+      copy:
+        content: "Welcome to Project 15 - Ansible Automation!"
+        dest: /var/www/html/index.html
